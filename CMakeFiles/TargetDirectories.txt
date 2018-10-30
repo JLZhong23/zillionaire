@@ -1,3 +1,0 @@
-/home/qimengxingyuan/Desktop/zillionaire/CMakeFiles/rebuild_cache.dir
-/home/qimengxingyuan/Desktop/zillionaire/CMakeFiles/zillionaire.dir
-/home/qimengxingyuan/Desktop/zillionaire/CMakeFiles/edit_cache.dir
