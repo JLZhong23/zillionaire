@@ -59,4 +59,4 @@
 ``` make ```
 
 #### 运行
-``` ./richman ```
+``` ./zillionaire ```
