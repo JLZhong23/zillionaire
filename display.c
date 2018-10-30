@@ -42,6 +42,7 @@ bool DisplayMap(GAME *game_state)
     }
 
     pos.x += 2;
+
     for(int i = 0; curr_pos_id < 70; ++i, ++curr_pos_id){
         pos.y -= 2;
         GET_MAP_FLAG(game_state, curr_pos_id, connect);

@@ -22,6 +22,7 @@
 }while(0);
 
 #define GET_OWNER_COLOR(owner_id, players, owner_flag) do { \
+    (owner_flag) = SPACE;\
     PLAYER *tmp_ply = players; \
     while(tmp_ply) {\
         if((tmp_ply)->player_id == (owner_id)) { \
