@@ -1,7 +1,7 @@
 #include "common.h"
 #include "display.h"
 
-bool DispalyMap(GAME *game_state)
+bool DisplayMap(GAME *game_state)
 {
     bool ret = false;
     int curr_pos_id = 0;
@@ -13,7 +13,7 @@ bool DispalyMap(GAME *game_state)
         goto Exit;
     }
 
-    CLEANSCREAM();
+    CLEANSCREEN();
     pos.y = START_Y;
     pos.x = START_X;
 

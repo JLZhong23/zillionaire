@@ -8,7 +8,7 @@ int main() {
 
     game_state = (GAME *)malloc(sizeof(GAME));
 
-    CLEANSCREAM();
+    CLEANSCREEN();
     printf("Welcome to Rich Man!\n");
 
     while (1) {
@@ -35,7 +35,7 @@ int main() {
 
     InitMap();
 
-    DispalyMap(game_state);
+    DisplayMap(game_state);
 
     GameStart();
 
@@ -151,7 +151,7 @@ void GameStart() {
 
     while (1) {
 
-        DispalyMap(game_state);
+        DisplayMap(game_state);
 
         // palyer play this round
         if (!game_state->current_player->sleep_time) {
@@ -208,7 +208,7 @@ void cmd_roll()
     ADD_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
 
     // update map
-    DispalyMap(game_state);
+    DisplayMap(game_state);
     printf("\n 您获得的点数为：%d",step);
     printf("\n please press any key to continue.");
     getchar();
