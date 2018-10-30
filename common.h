@@ -38,6 +38,11 @@
     printf("\033[1;1H"); \
 }while(0);
 
+#define PAUCE() do { \
+    getchar(); \
+    getchar(); \
+}while(0);
+
 #define DEL_HOUSE_FLAG(map_id, connect) do { \
     H_FLAG *pre_flag = NULL; \
     H_FLAG *temp_flag = game_state->map[map_id].house_flag; \

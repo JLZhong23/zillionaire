@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/richman.dir/richman.c.o"
   "CMakeFiles/richman.dir/display.c.o"
+  "CMakeFiles/richman.dir/housedeal.c.o"
   "richman.pdb"
   "richman"
 )

@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /Users/yzh/Desktop/zillionaire
 CMakeFiles/richman.dir/all:
 	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/depend
 	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/yzh/Desktop/zillionaire/CMakeFiles --progress-num=1,2,3 "Built target richman"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/yzh/Desktop/zillionaire/CMakeFiles --progress-num=1,2,3,4 "Built target richman"
 .PHONY : CMakeFiles/richman.dir/all
 
 # Include target in all.
@@ -81,7 +81,7 @@ all: CMakeFiles/richman.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/richman.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzh/Desktop/zillionaire/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzh/Desktop/zillionaire/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/richman.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzh/Desktop/zillionaire/CMakeFiles 0
 .PHONY : CMakeFiles/richman.dir/rule

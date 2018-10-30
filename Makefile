@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/local/Cellar/cmake/3.12.3/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -150,6 +150,33 @@ display.c.s:
 	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/display.c.s
 .PHONY : display.c.s
 
+housedeal.o: housedeal.c.o
+
+.PHONY : housedeal.o
+
+# target to build an object file
+housedeal.c.o:
+	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/housedeal.c.o
+.PHONY : housedeal.c.o
+
+housedeal.i: housedeal.c.i
+
+.PHONY : housedeal.i
+
+# target to preprocess a source file
+housedeal.c.i:
+	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/housedeal.c.i
+.PHONY : housedeal.c.i
+
+housedeal.s: housedeal.c.s
+
+.PHONY : housedeal.s
+
+# target to generate assembly for a file
+housedeal.c.s:
+	$(MAKE) -f CMakeFiles/richman.dir/build.make CMakeFiles/richman.dir/housedeal.c.s
+.PHONY : housedeal.c.s
+
 richman.o: richman.c.o
 
 .PHONY : richman.o
@@ -189,6 +216,9 @@ help:
 	@echo "... display.o"
 	@echo "... display.i"
 	@echo "... display.s"
+	@echo "... housedeal.o"
+	@echo "... housedeal.i"
+	@echo "... housedeal.s"
 	@echo "... richman.o"
 	@echo "... richman.i"
 	@echo "... richman.s"

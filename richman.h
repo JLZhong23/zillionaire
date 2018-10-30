@@ -7,6 +7,9 @@
 #define COMMAND_QUWRY "query"
 #define COMMAND_HELP "help"
 #define COMMAND_QUIT "quit"
+#define COMMAND_BUYHOUSE "buyhouse"
+#define COMMAND_SELLHOUSE "sellhouse"
+#define COMMAND_UPDATEHOUSE "updatehouse"
 
 #define STR_EQU(str1, str2) (strcasecmp((str1), (str2)) == 0)
 
@@ -49,7 +52,9 @@ void cmd_help();
 void cmd_query();
 void cmd_roll();
 void cmd_quit();
-
+void cmd_buyhouse();
+void cmd_sellhouse();
+void cmd_updatehouse();
 
 GAME *game_state = NULL;
 char role_name[4][16] = {"Q钱夫人", "A阿士伯", "J金贝贝", "S孙小美"};
