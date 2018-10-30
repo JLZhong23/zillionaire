@@ -1,7 +1,7 @@
 #include "common.h"
 #include "richman.h"
 #include "display.h"
-
+#include "housedeal.h"
 
 int main() {
     bool status;
@@ -166,6 +166,15 @@ void GameStart() {
             else if (STR_EQU(COMMAND_HELP, com_buf)) {
                 cmd_help();
             }
+            else if (STR_EQU(COMMAND_BUYHOUSE, com_buf)) {
+                cmd_buyhouse();
+            }
+            else if (STR_EQU(COMMAND_SELLHOUSE, com_buf)) {
+                cmd_sellhouse();
+            }
+            else if (STR_EQU(COMMAND_UPDATEHOUSE, com_buf)) {
+                cmd_updatehouse();
+            }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();
                 goto Exit;
@@ -236,4 +245,27 @@ void cmd_quit()
     printf("\nThanks for playing.");
     printf("\n please press any key to continue.");
     PAUSE();
+}
+
+void cmd_buyhouse()
+{
+    printf("Debug:start to buy house\n");
+    getchar();
+    BuyHouse(game_state->current_player->player_id, 
+             game_state->current_player->cur_pos, game_state);
+}
+
+void cmd_sellhouse()
+{
+    printf("Debug:start to sell house\n");
+    getchar();
+    SellHouse(game_state->current_player->cur_pos, game_state);
+}
+
+void cmd_updatehouse()
+{
+    printf("Debug:start to update house\n");
+    getchar();
+    UpdateHouse(game_state->current_player->player_id, 
+             game_state->current_player->cur_pos, game_state);
 }

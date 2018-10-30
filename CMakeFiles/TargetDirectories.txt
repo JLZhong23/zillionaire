@@ -1,0 +1,3 @@
+/Users/yzh/Desktop/zillionaire/CMakeFiles/rebuild_cache.dir
+/Users/yzh/Desktop/zillionaire/CMakeFiles/edit_cache.dir
+/Users/yzh/Desktop/zillionaire/CMakeFiles/richman.dir
