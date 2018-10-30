@@ -12,6 +12,15 @@
 #define COLOR_IS_YELLOW()  (printf("\033[33m"))
 #define COLOR_IS_WHITE()  (printf("\033[37m"))
 
+#define GET_MAP_FLAG(game, pos_id, connect) do { \
+    if((game)->map[pos_id].house_flag){ \
+        (connect) = (game)->map[pos_id].house_flag->flag; \
+    } \
+    else { \
+        (connect) = SPACE; \
+    } \
+}while(0);
+
 #define GOTOXY(x, y) do { \
     printf("\033[%d;%dH", y, x); \
 }while(0);

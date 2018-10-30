@@ -19,20 +19,20 @@ bool DispalyMap(GAME *game_state)
 
     for(int i = 0 ; curr_pos_id < 29; ++i, ++curr_pos_id){
         pos.x += 2;
-        connect = game_state->map[curr_pos_id].house_flag;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
 
     for(int i = 0; curr_pos_id < 35; ++i, ++curr_pos_id){
         pos.y += 2;
-        connect = game_state->map[curr_pos_id].house_flag;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
 
     pos.y += 2;
 
     for(int i = 0 ; curr_pos_id < 64; ++i, ++curr_pos_id){
-        connect = game_state->map[curr_pos_id].house_flag;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
         pos.x -= 2;
     }
@@ -40,7 +40,7 @@ bool DispalyMap(GAME *game_state)
     pos.x += 2;
     for(int i = 0; curr_pos_id < 70; ++i, ++curr_pos_id){
         pos.y -= 2;
-        connect = game_state->map[curr_pos_id].house_flag;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
 

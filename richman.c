@@ -2,7 +2,6 @@
 #include "richman.h"
 #include "display.h"
 
-char saved_flag = START;
 
 int main() {
     bool status;
@@ -116,7 +115,7 @@ void InitMap()
         game_state->map[i].ToolType = T_NO;
         game_state->map[i].house_level = 0;
         game_state->map[i].house_owner_id = 0;
-        game_state->map[i].house_flag = SPACE;
+        game_state->map[i].house_flag = NULL;
         game_state->map[i].map_value = 0;
     }
 
@@ -133,21 +132,19 @@ void InitMap()
     }
 
     for(; i < 70; ++i) {
-        game_state->map[i].house_flag = MINERAL;
+        ADD_HOUSE_FLAG(i,MINERAL);
     }
 
-    game_state->map[0].house_flag = START;
-    game_state->map[14].house_flag = HOSPITAL;
-    game_state->map[28].house_flag = TOOL;
-    game_state->map[35].house_flag = GIFT;
-    game_state->map[49].house_flag = PRISON;
-    game_state->map[63].house_flag = MAGIC;
-
-    for(i = 0; i < 70; ++i) {
-        game_state->map[i].saved_flag = game_state->map[i].house_flag;
-    }
+    ADD_HOUSE_FLAG(0, START);
+    ADD_HOUSE_FLAG(14, HOSPITAL);
+    ADD_HOUSE_FLAG(28, TOOL);
+    ADD_HOUSE_FLAG(35, GIFT);
+    ADD_HOUSE_FLAG(49, PRISON);
+    ADD_HOUSE_FLAG(63, MAGIC);
 
 }
+
+
 
 void GameStart() {
     char com_buf[10];
@@ -199,20 +196,18 @@ void cmd_roll()
     char flag;
     GET_STEP(step);
 
-    // There is a bug: how to restore the flag when player leave.
-    game_state->map[game_state->current_player->cur_pos].house_flag = \
-    game_state->map[game_state->current_player->cur_pos].saved_flag;
+    GET_PLAYER_FLAG(game_state, flag);
+
+    // player leave current map block
+    DEL_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
 
     // player move
     game_state->current_player->cur_pos = (game_state->current_player->cur_pos + step) % 70;
 
+    // player arrive new map block
+    ADD_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
+
     // update map
-    GET_PLAYER_FLAG(game_state, flag);
-    game_state->map[game_state->current_player->cur_pos].house_flag = flag;
-
-    // save the flag of next map block
-    //TODO:how to save the pre flag
-
     DispalyMap(game_state);
     printf("\n 您获得的点数为：%d",step);
     printf("\n please press any key to continue.");
@@ -220,6 +215,7 @@ void cmd_roll()
     getchar();
     CHECK_OUT_PLAYER(game_state);
 }
+
 
 void cmd_query()
 {

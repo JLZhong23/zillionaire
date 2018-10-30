@@ -38,6 +38,33 @@
     printf("\033[1;1H"); \
 }while(0);
 
+#define DEL_HOUSE_FLAG(map_id, connect) do { \
+    H_FLAG *pre_flag = NULL; \
+    H_FLAG *temp_flag = game_state->map[map_id].house_flag; \
+    while(temp_flag) { \
+        if(temp_flag->flag == flag){ \
+            if(!pre_flag){ \
+                game_state->map[map_id].house_flag = temp_flag->next; \
+            }\
+            else{ \
+                pre_flag->next = temp_flag->next; \
+                free(temp_flag); \
+                break; \
+            } \
+        } \
+    pre_flag = temp_flag; \
+    temp_flag = temp_flag->next; \
+    }\
+}while(0);
+
+#define ADD_HOUSE_FLAG(map_id, connect) do { \
+    H_FLAG *temp_h_flag; \
+    temp_h_flag = (H_FLAG *)malloc(sizeof(H_FLAG)); \
+    temp_h_flag->flag = connect; \
+    temp_h_flag->next = game_state->map[map_id].house_flag; \
+    game_state->map[map_id].house_flag = temp_h_flag; \
+}while(0);
+
 #define GET_PLAYER_FLAG(game, flag) do { \
     (flag) = ((game)->current_player->player_name[0]); \
 }while(0);
@@ -78,7 +105,10 @@ typedef struct PLAYER_ {
     struct PLAYER_ *next;
 }PLAYER;
 
-
+typedef struct H_FLAG_ {
+    char flag;
+    struct H_FLAG_ *next;
+}H_FLAG;
 
 typedef struct MAP_BLOCK_ {
     // id of owner
@@ -86,10 +116,7 @@ typedef struct MAP_BLOCK_ {
 
     // house flag which to display
     // value just as 0 # @ $ Q H M ....
-    char house_flag;
-
-    // house flag have saved for recovery when player leave
-    char saved_flag;
+    H_FLAG *house_flag;
 
     // house level and equal 0 when no owner
     int house_level;
