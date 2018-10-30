@@ -3,8 +3,8 @@
 
 #include <stdbool.h>
 
-#define START_X 0
-#define START_Y 0
+#define START_X 3
+#define START_Y 3
 
 #define COLOR_IS_RED()  (printf("\033[31m"))
 #define COLOR_IS_GREEN()  (printf("\033[32m"))
@@ -12,9 +12,13 @@
 #define COLOR_IS_YELLOW()  (printf("\033[33m"))
 #define COLOR_IS_WHITE()  (printf("\033[37m"))
 
-#define CLEANSCREAM() do { \
-    printf("\033[2J "); \
-    printf("\033[1;1H"); \
+#define GET_MAP_FLAG(game, pos_id, connect) do { \
+    if((game)->map[pos_id].house_flag){ \
+        (connect) = (game)->map[pos_id].house_flag->flag; \
+    } \
+    else { \
+        (connect) = SPACE; \
+    } \
 }while(0);
 
 #define GOTOXY(x, y) do { \
