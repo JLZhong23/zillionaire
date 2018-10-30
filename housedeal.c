@@ -29,6 +29,7 @@ void BuyHouse(int role_id, int house_position)
         game_state->current_player->money = game_state->current_player->money - game_state->map[house_position].map_value;
         game_state->map[house_position].house_owner_id = role_id;
         // 玩家中要添加该空地game_state->current_player->house[] 
+        game_state->current_player->house_id[house_position] = 1;
         printf("恭喜你购买成功");
     }
 }
@@ -113,10 +114,14 @@ void SellHouse(int house_position)
     }
     else
     {
-       //将该人的房屋回收
+       
+       game_state->current_player->house_id[house_position] = 0;
+       game_state->map[house_position].house_owner_id = 0;
+       game_state->map[house_position].house_flag = 0;
        //the money of selling the house
        int sell_money = game_state->map[house_position].map_value * (game_state->map[house_position].house_level + 1) * 0.5; 
        game_state->current_player->money += sell_money;
+
        printf("恭喜你售卖成功");
     }
 }
