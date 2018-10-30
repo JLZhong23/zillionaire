@@ -69,6 +69,11 @@
     (flag) = ((game)->current_player->player_name[0]); \
 }while(0);
 
+#define PAUSE() do { \
+    getchar(); \
+    getchar(); \
+}while(0);
+
 typedef struct PLAYER_ {
     // user id
     int player_id;

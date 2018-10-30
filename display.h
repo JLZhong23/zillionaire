@@ -21,6 +21,17 @@
     } \
 }while(0);
 
+#define GET_OWNER_COLOR(owner_id, players, owner_flag) do { \
+    PLAYER *tmp_ply = players; \
+    while(tmp_ply) {\
+        if((tmp_ply)->player_id == (owner_id)) { \
+            (owner_flag) = (tmp_ply)->player_name[0]; \
+            break; \
+        } \
+        tmp_ply = tmp_ply->next; \
+    } \
+}while(0);
+
 #define GOTOXY(x, y) do { \
     printf("\033[%d;%dH", y, x); \
 }while(0);
@@ -33,5 +44,5 @@ typedef struct POS_ {
 
 bool DisplayMap(GAME *game_state);
 void ShowTips(char *name, char _flag, POS _pos);
-void DisplayBlock(POS pos, char connect);
+void DisplayBlock(POS pos, char connect, char owner);
 #endif //RICHMAN_DISPLAY_H
