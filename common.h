@@ -14,7 +14,7 @@
 #define MAGIC 'M'       // magic house
 #define PRISON 'P'      // prison
 #define MINERAL '$'     // mineral area
-#define START 'S'       // start area
+#define START 's'       // start area
 #define ROADBLOCK '#'
 #define BOMB '@'
 
@@ -33,7 +33,14 @@
 
 #define INITIAL_MONEY 10000
 
-#define GET_PLAYER_FLAG ((game_state)->map[(game_state)->current_player->cur_pos].house_flag)
+#define CLEANSCREAM() do { \
+    printf("\033[2J "); \
+    printf("\033[1;1H"); \
+}while(0);
+
+#define GET_PLAYER_FLAG(game, flag) do { \
+    (flag) = ((game)->current_player->player_name[0]); \
+}while(0);
 
 typedef struct PLAYER_ {
     // user id
@@ -80,6 +87,9 @@ typedef struct MAP_BLOCK_ {
     // house flag which to display
     // value just as 0 # @ $ Q H M ....
     char house_flag;
+
+    // house flag have saved for recovery when player leave
+    char saved_flag;
 
     // house level and equal 0 when no owner
     int house_level;

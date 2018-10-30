@@ -6,6 +6,7 @@
 #define COMMAND_ROLL "roll"
 #define COMMAND_QUWRY "query"
 #define COMMAND_HELP "help"
+#define COMMAND_QUIT "quit"
 
 #define STR_EQU(str1, str2) (strcasecmp((str1), (str2)) == 0)
 
@@ -47,11 +48,10 @@ void GameStart();
 void cmd_help();
 void cmd_query();
 void cmd_roll();
-
-char get_house_flag(int i);
+void cmd_quit();
 
 
 GAME *game_state = NULL;
-char role_name[4][16] = {"钱夫人", "阿士伯", "金贝贝", "孙小美"};
+char role_name[4][16] = {"Q钱夫人", "A阿士伯", "J金贝贝", "S孙小美"};
 
 #endif //RICHMAN_RICHMAN_H
