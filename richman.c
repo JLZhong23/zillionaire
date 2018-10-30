@@ -2,10 +2,14 @@
 #include "richman.h"
 #include "display.h"
 
+
 int main() {
     bool status;
 
     game_state = (GAME *)malloc(sizeof(GAME));
+
+    CLEANSCREEN();
+    printf("Welcome to Rich Man!\n");
 
     while (1) {
         char return_back;
@@ -31,7 +35,7 @@ int main() {
 
     InitMap();
 
-    DispalyMap(game_state);
+    DisplayMap(game_state);
 
     GameStart();
 
@@ -111,7 +115,7 @@ void InitMap()
         game_state->map[i].ToolType = T_NO;
         game_state->map[i].house_level = 0;
         game_state->map[i].house_owner_id = 0;
-        game_state->map[i].house_flag = SPACE;
+        game_state->map[i].house_flag = NULL;
         game_state->map[i].map_value = 0;
     }
 
@@ -128,24 +132,26 @@ void InitMap()
     }
 
     for(; i < 70; ++i) {
-        game_state->map[i].house_flag = MINERAL;
+        ADD_HOUSE_FLAG(i,MINERAL);
     }
 
-    game_state->map[0].house_flag = START;
-    game_state->map[14].house_flag = HOSPITAL;
-    game_state->map[28].house_flag = TOOL;
-    game_state->map[35].house_flag = GIFT;
-    game_state->map[49].house_flag = PRISON;
-    game_state->map[63].house_flag = MAGIC;
+    ADD_HOUSE_FLAG(0, START);
+    ADD_HOUSE_FLAG(14, HOSPITAL);
+    ADD_HOUSE_FLAG(28, TOOL);
+    ADD_HOUSE_FLAG(35, GIFT);
+    ADD_HOUSE_FLAG(49, PRISON);
+    ADD_HOUSE_FLAG(63, MAGIC);
 
 }
 
+
+
 void GameStart() {
     char com_buf[10];
-    int dele = 1;
-    while (dele) {
 
-        DispalyMap(game_state);
+    while (1) {
+
+        DisplayMap(game_state);
 
         // palyer play this round
         if (!game_state->current_player->sleep_time) {
@@ -160,9 +166,14 @@ void GameStart() {
             else if (STR_EQU(COMMAND_HELP, com_buf)) {
                 cmd_help();
             }
+            else if (STR_EQU(COMMAND_QUIT, com_buf)) {
+                cmd_quit();
+                goto Exit;
+            }
             else {
-                printf("您输入的指令有误.\n");
+                printf("\n 您输入的指令有误.");
                 printf("\n please press any key to continue.");
+                getchar();
                 getchar();
                 continue;
             }
@@ -174,29 +185,37 @@ void GameStart() {
             CHECK_OUT_PLAYER(game_state);
         }
     }
+    Exit:
+    return;
 
 }
 
 void cmd_roll()
 {
     short step;
+    char flag;
     GET_STEP(step);
 
-    // There is a bug: how to restore the flag when player leave.
-    game_state->map[game_state->current_player->cur_pos].house_flag = get_house_flag(game_state->current_player->cur_pos);
+    GET_PLAYER_FLAG(game_state, flag);
+
+    // player leave current map block
+    DEL_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
 
     // player move
     game_state->current_player->cur_pos = (game_state->current_player->cur_pos + step) % 70;
 
-    // update map
-    game_state->map[game_state->current_player->cur_pos].house_flag = GET_PLAYER_FLAG;
+    // player arrive new map block
+    ADD_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
 
-    DispalyMap(game_state);
-    printf("\n您获得的点数为：%d",step);
+    // update map
+    DisplayMap(game_state);
+    printf("\n 您获得的点数为：%d",step);
     printf("\n please press any key to continue.");
+    getchar();
     getchar();
     CHECK_OUT_PLAYER(game_state);
 }
+
 
 void cmd_query()
 {
@@ -204,7 +223,7 @@ void cmd_query()
     printf("\n This is your query result");
     printf("\n please press any key to continue.");
     getchar();
-
+    getchar();
 }
 
 void cmd_help()
@@ -213,38 +232,13 @@ void cmd_help()
     printf("\nTODO: show how to play.");
     printf("\n please press any key to continue.");
     getchar();
+    getchar();
 }
 
-
-
-
-/**
-*根据位置获取房屋符号
-*/
-char get_house_flag(int i) {
-    char flag;
-    if(i == 0) {
-        flag = 'S';           // 起始点
-    } else if((i >= 1 && i <= 13) || (i >= 15 && i <= 27)) {
-        flag = '0';
-    } else if(i == 14) {
-        flag = 'H';
-    } else if(i == 28) {
-        flag = 'T';
-    } else if(i >= 29 && i<= 34) {
-        flag = '0';
-    }else if(i == 35) {                 // 礼品屋
-        flag = 'G';
-    }else if((i >= 36 && i<= 48) || (i >= 50 && i <= 62)) {
-        flag = '0';
-    }else if(i==49) {
-        flag = 'P';
-    }else if(i == 63) {
-        flag = 'M';
-    }else {
-        flag = '$';
-    }
-    return flag;
+void cmd_quit()
+{
+    printf("\nThanks for playing.");
+    printf("\n please press any key to continue.");
+    getchar();
+    getchar();
 }
-
-

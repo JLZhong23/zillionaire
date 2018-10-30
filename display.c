@@ -1,7 +1,7 @@
 #include "common.h"
 #include "display.h"
 
-bool DispalyMap(GAME *game_state)
+bool DisplayMap(GAME *game_state)
 {
     bool ret = false;
     int curr_pos_id = 0;
@@ -13,36 +13,40 @@ bool DispalyMap(GAME *game_state)
         goto Exit;
     }
 
-    CLEANSCREAM();
+    CLEANSCREEN();
     pos.y = START_Y;
     pos.x = START_X;
 
     for(int i = 0 ; curr_pos_id < 29; ++i, ++curr_pos_id){
-        ++ pos.x;
-        connect = game_state->map[curr_pos_id].house_flag;
+        pos.x += 2;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
 
     for(int i = 0; curr_pos_id < 35; ++i, ++curr_pos_id){
-        ++ pos.y;
-        connect = game_state->map[curr_pos_id].house_flag;
+        pos.y += 2;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
+
+    pos.y += 2;
 
     for(int i = 0 ; curr_pos_id < 64; ++i, ++curr_pos_id){
-        -- pos.x;
-        connect = game_state->map[curr_pos_id].house_flag;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
+        pos.x -= 2;
     }
 
+    pos.x += 2;
     for(int i = 0; curr_pos_id < 70; ++i, ++curr_pos_id){
-        -- pos.y;
-        connect = game_state->map[curr_pos_id].house_flag;
+        pos.y -= 2;
+        GET_MAP_FLAG(game_state, curr_pos_id, connect);
         DisplayBlock(pos, connect);
     }
 
-    pos.y += 8;
-    ShowTips(game_state->current_player->player_name, GET_PLAYER_FLAG, pos);
+    pos.y += 14;
+    GET_PLAYER_FLAG(game_state, connect);
+    ShowTips(game_state->current_player->player_name, connect, pos);
 
     ret = true;
 
@@ -74,7 +78,7 @@ void ShowTips(char *name, char _flag, POS _pos)
     }
 
     GOTOXY(_pos.x, _pos.y);
-    printf("**%s >", name);
+    printf("  %s >", name);
 
 }
 
