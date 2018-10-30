@@ -173,8 +173,7 @@ void GameStart() {
             else {
                 printf("\n 您输入的指令有误.");
                 printf("\n please press any key to continue.");
-                getchar();
-                getchar();
+                PAUSE();
                 continue;
             }
         }
@@ -211,8 +210,7 @@ void cmd_roll()
     DisplayMap(game_state);
     printf("\n 您获得的点数为：%d",step);
     printf("\n please press any key to continue.");
-    getchar();
-    getchar();
+    PAUSE();
     CHECK_OUT_PLAYER(game_state);
 }
 
@@ -222,8 +220,7 @@ void cmd_query()
     printf("\n亲爱%s：", game_state->current_player->player_name);
     printf("\n This is your query result");
     printf("\n please press any key to continue.");
-    getchar();
-    getchar();
+    PAUSE();
 }
 
 void cmd_help()
@@ -231,14 +228,12 @@ void cmd_help()
     printf("\nthis is a help!");
     printf("\nTODO: show how to play.");
     printf("\n please press any key to continue.");
-    getchar();
-    getchar();
+    PAUSE();
 }
 
 void cmd_quit()
 {
     printf("\nThanks for playing.");
     printf("\n please press any key to continue.");
-    getchar();
-    getchar();
+    PAUSE();
 }
