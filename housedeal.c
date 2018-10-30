@@ -1,19 +1,18 @@
 #include "housedeal.h"
-#include "common.h"
 
 void BuyHouse(int role_id, int house_position, GAME *game_state)
 {
     if(role_id>4 | role_id < 1)
     {
         printf("Error: role_id is out of 1~4!");
-        PAUCE();
+        PAUSE();
         return;
     }
     
     if(game_state->map[house_position].house_owner_id != 0)
     {
         printf("该房子已经被其他玩家购买");
-        PAUCE();
+        PAUSE();
         return;
     }
  
@@ -24,7 +23,7 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
     if(confirm == 'N')
     {
         printf("你已经放弃购买");
-        PAUCE();    
+        PAUSE();
         return;
     }
     else
@@ -35,7 +34,7 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
         game_state->current_player->house_id[house_position] 
         =  &(game_state->map[house_position]);
         printf("恭喜你购买成功\n");
-        PAUCE();
+        PAUSE();
     }
 }
 
@@ -45,14 +44,14 @@ void UpdateHouse(int role_id, int house_position, GAME *game_state)
     if(role_id>4 | role_id < 1)
     {
         printf("Error: role_id is out of 1~4!");
-        PAUCE();
+        PAUSE();
         return;
     }
     
     if(game_state->map[house_position].house_owner_id != role_id)
     {
         printf("该房子还不属于你");
-        PAUCE();
+        PAUSE();
         return;
     }
 
@@ -61,27 +60,27 @@ void UpdateHouse(int role_id, int house_position, GAME *game_state)
     {
         case 0:
             HouseUpdateOneLeve(house_position, "空地", "茅房", game_state);
-            PAUCE(); 
+            PAUSE();
             break;
 
         case 1:
             HouseUpdateOneLeve(house_position, "茅房", "洋房", game_state);
-            PAUCE(); 
+            PAUSE();
             break;
 
         case 2:
             HouseUpdateOneLeve(house_position, "洋房", "摩天楼", game_state);
-            PAUCE(); 
+            PAUSE();
             break;    
 
          case 3:
             printf("你的房子是摩天大楼，你不需要再升级");
-            PAUCE(); 
+            PAUSE();
             break;               
 
          default:
             printf("Error: house_level is out of 0~3!");
-            PAUCE();
+            PAUSE();
             break;
     }
 
@@ -119,7 +118,7 @@ void SellHouse(int house_position, GAME *game_state)
     if(game_state->map[house_position].house_owner_id != game_state->current_player->player_id)
     {
         printf("该房子还不属于你");
-        PAUCE();
+        PAUSE();
         return;
     }
 
@@ -129,7 +128,7 @@ void SellHouse(int house_position, GAME *game_state)
     if(confirm == 'N')
     {
         printf("你已经放弃购买");
-        PAUCE(); 
+        PAUSE();
         return;
     }
     else
@@ -143,6 +142,6 @@ void SellHouse(int house_position, GAME *game_state)
        game_state->current_player->money += sell_money;
 
        printf("恭喜你售卖成功!\n");
-       PAUCE();
+       PAUSE();
     }
 }
