@@ -33,7 +33,7 @@
 
 #define INITIAL_MONEY 10000
 
-#define CLEANSCREAM() do { \
+#define CLEANSCREEN() do { \
     printf("\033[2J "); \
     printf("\033[1;1H"); \
 }while(0);

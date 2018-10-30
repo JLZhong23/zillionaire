@@ -31,7 +31,7 @@ typedef struct POS_ {
     int y;
 }POS;
 
-bool DispalyMap(GAME *game_state);
+bool DisplayMap(GAME *game_state);
 void ShowTips(char *name, char _flag, POS _pos);
 void DisplayBlock(POS pos, char connect);
 #endif //RICHMAN_DISPLAY_H
