@@ -179,7 +179,6 @@ void GameStart() {
                 cmd_buyhouse();
                 CHECK_OUT_PLAYER(game_state);
 
-
             }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();

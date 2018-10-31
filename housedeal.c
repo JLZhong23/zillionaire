@@ -37,7 +37,7 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
         printf("你的余额为:%d\n", game_state->current_player->money);
         PrintHouseInfo(game_state);
         printf("是否确认购买：\n输入Y或N:");
-        scanf("%c", &confirm);
+        scanf("%c", &confirm);// TODO:change
         
         if(confirm == 'N' || confirm == 'n')
         {
@@ -121,7 +121,7 @@ void HouseUpdateOneLeve(int house_position, char *primary_level, char *update_le
 {
     char choose_bool; //role choose the level of house to update
     printf("你的房子是%s，你要升级的等级:\n%s\n是否选择升级:\n1.Y\n2.N\n", primary_level, update_level);
-    getchar();
+    getchar(); //TODO:change
     scanf("%c", &choose_bool);
     if(choose_bool == 'Y' || choose_bool == 'y')
     {
@@ -162,7 +162,7 @@ void SellHouse(int house_position, GAME *game_state)
     char confirm;
     printf("是否确认出售房屋：输入Y或N:");
 
-    scanf("%c", &confirm);
+    scanf("%c", &confirm); //TODO:
     if(confirm == 'N' || confirm == 'n')
     {
         printf("你已经放弃购买");
