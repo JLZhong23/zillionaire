@@ -85,8 +85,6 @@ void UpdateHouse(int role_id, int house_position, GAME *game_state)
         return;
     }  
 
-
-    
     switch (game_state->map[house_position].house_level)
     {
         case 0:
@@ -180,7 +178,7 @@ void SellHouse(GAME *game_state)
             return;
         }
 
-        printf("是否确认出售房屋：\n输入Y或N:");
+        printf("是否确认出售房屋(Y/N):");
         char confirm = UsFgetsChar();
 
         // scanf("%c", &confirm);
@@ -225,6 +223,7 @@ void PayFees(GAME *game_state)
     map_player->money += fees;
     printf("缴费成功\n");
 
+    game_state->current_player->money = -100;
     //check bankrupt
     if( game_state->current_player->money < 0)
     {
@@ -254,14 +253,19 @@ PLAYER * Map_Player(int plyr_id, GAME *game_state)
 void DeleteCurrentPlayer(GAME *game_state)
 {
     int current_player_id = game_state->current_player->player_id;
+    printf("11115\n");
     PLAYER *pre_player = NULL;
+    printf("111116\n");
     PLAYER *temp_player = game_state->player;
-    
+    printf("111117\n");
     //when the first player bankrupt
     if (temp_player->player_id == current_player_id)
     {
+        printf("111112\n");
         temp_player = game_state->current_player->next;
+        printf("111114\n");
         free(game_state->current_player);
+        printf("11111\n");
         game_state->current_player = temp_player;
     }
     else
@@ -269,15 +273,18 @@ void DeleteCurrentPlayer(GAME *game_state)
         while(1)
         {
             pre_player = temp_player;
+            printf("111119\n");
             temp_player = temp_player->next;
             if (temp_player->player_id == current_player_id)
             {
+                printf("1111109\n");
                 pre_player ->next = temp_player->next;
                 free(game_state->current_player);
                 game_state->current_player = temp_player;
                 break;
             }
             else{
+                printf("w11111\n");
                 pre_player = temp_player;
                 temp_player = temp_player->next;
             }
