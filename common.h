@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define BUF_SIZE 1024
 
 #define HOSPITAL 'H'    // hospital
 #define TOOL 'T'        // tools
@@ -24,8 +25,6 @@
 #define T_ROBOT 3
 
 
-
-
 #define P_QFR 'Q'       // qian fu ren who color is red
 #define P_ASB 'A'       // a shi bo who color is green
 #define P_SXM 'S'       // sun xiao mei who color is blue
@@ -36,11 +35,6 @@
 #define CLEANSCREEN() do { \
     printf("\033[2J "); \
     printf("\033[1;1H"); \
-}while(0);
-
-#define PAUCE() do { \
-    getchar(); \
-    getchar(); \
 }while(0);
 
 #define DEL_HOUSE_FLAG(map_id, connect) do { \
@@ -72,6 +66,11 @@
 
 #define GET_PLAYER_FLAG(game, flag) do { \
     (flag) = ((game)->current_player->player_name[0]); \
+}while(0);
+
+#define PAUSE() do { \
+    getchar(); \
+    getchar(); \
 }while(0);
 
 typedef struct PLAYER_ {
@@ -151,5 +150,8 @@ typedef struct GAME_ {
     MAP_BLOCK map[70];
 }GAME;
 
+
+int UsFgetsNum();
+char UsFgetsChar();
 
 #endif //RICHMAN_COMMON_H
