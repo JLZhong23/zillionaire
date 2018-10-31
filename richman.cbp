@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="richman"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/yzh/Desktop/zillionaire"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/yzh/Desktop/zillionaire"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/yzh/Desktop/zillionaire"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="richman">
+				<Option output="/Users/yzh/Desktop/zillionaire/richman" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/yzh/Desktop/zillionaire"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 richman"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="richman/fast">
+				<Option output="/Users/yzh/Desktop/zillionaire/richman" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/yzh/Desktop/zillionaire"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 richman/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/yzh/Desktop/zillionaire/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/common.h">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/display.c">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/display.h">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/housedeal.c">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/housedeal.h">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/richman.c">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/richman.h">
+			<Option target="richman"/>
+		</Unit>
+		<Unit filename="/Users/yzh/Desktop/zillionaire/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
