@@ -37,7 +37,6 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
         printf("你的余额为:%d\n", game_state->current_player->money);
         PrintHouseInfo(game_state);
         printf("是否确认购买：\n输入Y或N:");
-        getchar();
         scanf("%c", &confirm);
         
         if(confirm == 'N' || confirm == 'n')
@@ -134,7 +133,7 @@ void HouseUpdateOneLeve(int house_position, char *primary_level, char *update_le
         else
         {
             game_state->current_player->money = game_state->current_player->money - game_state->map[house_position].map_value;
-            game_state->map->house_level = 1;
+            game_state->map[house_position].house_level += 1;
             printf("房屋成功升级为%s", update_level);
             return;
         }
@@ -162,6 +161,7 @@ void SellHouse(int house_position, GAME *game_state)
 
     char confirm;
     printf("是否确认出售房屋：输入Y或N:");
+
     scanf("%c", &confirm);
     if(confirm == 'N' || confirm == 'n')
     {
@@ -198,7 +198,7 @@ void PayFees(GAME *game_state)
     printf("%d\n", fees);
     //current player add the fees
     game_state->current_player->money -= fees;
-    PLAYER *map_player = Map_Player(game_state->current_player->cur_pos, game_state);
+    PLAYER *map_player = Map_Player(game_state->map[game_state->current_player->cur_pos].house_owner_id, game_state);
     //map player subtract the fees
     map_player->money += fees;
     printf("缴费成功\n");
@@ -213,22 +213,20 @@ void PayFees(GAME *game_state)
 }
 
 //get the player of map
-PLAYER * Map_Player(int house_id, GAME *game_state)
+PLAYER * Map_Player(int plyr_id, GAME *game_state)
 {
 
     PLAYER *map_player;
     map_player = game_state->player;
-    while(1)
+    while(map_player)
     {
-        if (map_player->player_id == house_id)
+        if (map_player->player_id == plyr_id)
         {
             return map_player;
         }
-        else
-        {
-            map_player = map_player->next;
-        }
+        map_player = map_player->next;
     }
+    return NULL;
 }
 
 void DeleteCurrentPlayer(GAME *game_state)

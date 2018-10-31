@@ -236,9 +236,10 @@ void cmd_step()
     // short step;
     char flag;
     // GET_STEP(step);
-
-    printf("请输入步数：");
-    step = UsFgetsNum();
+    getchar();
+    while((step = UsFgetsNum()) == 0){
+        printf("请输入距离!");
+    }
 
     GET_PLAYER_FLAG(game_state, flag);
 
