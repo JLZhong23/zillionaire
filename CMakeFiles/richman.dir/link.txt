@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/cc  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/richman.dir/richman.c.o CMakeFiles/richman.dir/display.c.o CMakeFiles/richman.dir/housedeal.c.o  -o richman 

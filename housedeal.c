@@ -3,7 +3,6 @@
 
 void BuyHouse(int role_id, int house_position, GAME *game_state)
 {
-    printf("Debug:start to buy house3\n");
 
     if(role_id>4 || role_id < 1)
     {
@@ -11,9 +10,6 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
         PAUCE();
         return;
     }
-
-    printf("Debug:start to buy house4\n");
-    printf("Debug:start to buy house5\n");
 
     // pay the fees
     if(game_state->map[house_position].house_owner_id != 0 &&
@@ -39,8 +35,9 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
         printf("你的余额为:%d\n", game_state->current_player->money);
         PrintHouseInfo(game_state);
         printf("是否确认购买：\n输入Y或N:");
+        getchar();
         scanf("%c", &confirm);
-         printf("是否确认购买：\n输入Y或N:");
+        
         if(confirm == 'N' || confirm == 'n')
         {
             printf("你已经放弃购买");
@@ -65,7 +62,6 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
                 printf("恭喜你购买成功\n");
                 printf("你的余额为:%d", game_state->current_player->money);
                 printf("\n");
-                PrintHouseInfo(game_state);
                 PAUCE();
             }
         }
@@ -123,8 +119,9 @@ void HouseUpdateOneLeve(int house_position, char *primary_level, char *update_le
 {
     char choose_bool; //role choose the level of house to update
     printf("你的房子是%s，你要升级的等级:\n%s\n是否选择升级:\n1.Y\n2.N\n", primary_level, update_level);
+    getchar();
     scanf("%c", &choose_bool);
-    if(choose_bool == 'Y')
+    if(choose_bool == 'Y' || choose_bool == 'y')
     {
         if(game_state->map[house_position].map_value > game_state->current_player->money)
         {
@@ -138,10 +135,15 @@ void HouseUpdateOneLeve(int house_position, char *primary_level, char *update_le
             printf("房屋成功升级为%s", update_level);
             return;
         }
-    }else
+    }else if(choose_bool == 'N' || choose_bool == 'n')
     {
         printf("你已放弃升级!");
         return;
+    }
+    else
+    {
+        printf("你输入的命令有误");
+        PAUCE();
     }
 }
 
@@ -187,9 +189,10 @@ void SellHouse(int house_position, GAME *game_state)
 void PayFees(GAME *game_state)
 {
     int house_value = game_state->map[game_state->current_player->cur_pos].map_value;
+
     int house_level = game_state->map[game_state->current_player->cur_pos].house_level;
-    int fees = house_level * house_value * 0.5;
-    printf("%d", fees);
+    int fees = (house_level + 1) * house_value * 0.5;
+    printf("%d\n", fees);
     //current player add the fees
     game_state->current_player->money -= fees;
     PLAYER *map_player = Map_Player(game_state->current_player->cur_pos, game_state);

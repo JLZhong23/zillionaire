@@ -119,7 +119,7 @@ void InitMap()
         game_state->map[i].map_value = 0;
     }
 
-    for(i = 0; i < 29; ++i) {
+    for(i = 1; i < 29; ++i) {
         game_state->map[i].map_value = 200;
     }
 
@@ -159,7 +159,6 @@ void GameStart() {
 
             if(STR_EQU(COMMAND_ROLL, com_buf)){
                 cmd_roll();
-                printf("当前玩家所在位置：%d\n", game_state->current_player->cur_pos);
                 cmd_buyhouse();
                 CHECK_OUT_PLAYER(game_state);
 
@@ -179,7 +178,6 @@ void GameStart() {
                 int step;
                 scanf("%d", &step);
                 cmd_step(step);
-                printf("当前玩家所在位置：%d\n", game_state->current_player->cur_pos);
                 cmd_buyhouse();
                 CHECK_OUT_PLAYER(game_state);
 
@@ -220,11 +218,8 @@ void cmd_roll()
     // player leave current map block
     DEL_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
     
-    printf("当前玩家所在位置1：%d\n", game_state->current_player->cur_pos);
-
     // player move
     game_state->current_player->cur_pos = (game_state->current_player->cur_pos + step) % 70;
-    printf("当前玩家所在位置2：%d\n", game_state->current_player->cur_pos);
 
     // player arrive new map block
     ADD_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
@@ -284,7 +279,7 @@ void cmd_help()
 void cmd_quit()
 {
     printf("\nThanks for playing.");
-    printf("\n please press any key zto continue.");
+    printf("\n please press any key to continue.");
     getchar();
     getchar();
 }
