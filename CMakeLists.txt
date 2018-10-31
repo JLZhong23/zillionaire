@@ -10,6 +10,6 @@ set(SOURCE_FILES
         housedeal.c
         housedeal.h
         richman.c
-        richman.h)
+        richman.h input.c api.h help.c)
 
 add_executable(zillionaire ${SOURCE_FILES})

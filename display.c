@@ -130,5 +130,5 @@ void DisplayBlock(POS pos, char connect, char owner)
     }
 
     printf("%c", connect);
-
 }
+

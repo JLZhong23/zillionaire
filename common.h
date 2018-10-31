@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define BUF_SIZE 1024
 
 #define HOSPITAL 'H'    // hospital
 #define TOOL 'T'        // tools
@@ -149,5 +150,8 @@ typedef struct GAME_ {
     MAP_BLOCK map[70];
 }GAME;
 
+
+int UsFgetsNum();
+char UsFgetsChar();
 
 #endif //RICHMAN_COMMON_H
