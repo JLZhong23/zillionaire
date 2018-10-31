@@ -284,16 +284,15 @@ void cmd_quit()
 
 void cmd_buyhouse()
 {
-    PrintHouseInfo(game_state);
+    PrintHouseInfo(game_state->current_player->cur_pos, game_state);
     printf("\n");
     BuyHouse(game_state->current_player->player_id, 
              game_state->current_player->cur_pos, game_state);
-    PrintHouseInfo(game_state);
 }
 
 void cmd_sellhouse()
 {
     printf("Debug:start to sell house\n");
     getchar();
-    SellHouse(game_state->current_player->cur_pos, game_state);
+    SellHouse(game_state);
 }
