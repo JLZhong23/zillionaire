@@ -2,6 +2,7 @@
 #include "richman.h"
 #include "display.h"
 #include "housedeal.h"
+#include "api.h"
 
 int main() {
     bool status;
@@ -14,7 +15,7 @@ int main() {
     while (1) {
         char return_back;
         printf("您是否要恢复之前游戏进度：y or n  ");
-        return_back = getchar();
+        return_back = UsFgetsChar();
         if (return_back == 'y' || return_back == 'Y') {
             // TODO: recovery progress have saved!
             printf("recovery progress have saved!\n");
@@ -54,7 +55,7 @@ bool ChooseRole()
     // choose player num
     while (1) {
         printf("请输入玩家数量2~4, 输入0退出: ");
-        scanf("%d", &player_num);
+        player_num = UsFgetsNum();
 
         if (player_num >= 2 && player_num <= 4) {
             game_state->player_num = player_num;
@@ -69,7 +70,7 @@ bool ChooseRole()
     // choose roles
     for(int i = 0; i < player_num; ){
         printf("选择%d号的角色: 1.钱夫人，2.阿土伯，3.金贝贝，4.孙小美:", i+1);
-        scanf("%d", &role_num);
+        role_num = UsFgetsNum();
 
         if(role_num >=1 && role_num <= 4){
             ROLE_EXIST(role_num, exit_role, status);
@@ -119,7 +120,7 @@ void InitMap()
         game_state->map[i].map_value = 0;
     }
 
-    for(i = 1; i < 29; ++i) {
+    for(i = 0; i < 29; ++i) {
         game_state->map[i].map_value = 200;
     }
 
@@ -226,16 +227,14 @@ void cmd_roll()
 
 void cmd_query()
 {
-    printf("\n亲爱%s：", game_state->current_player->player_name);
-    printf("\n This is your query result");
+    PlayQuery(game_state);
     printf("\n please press any key to continue.");
     PAUSE();
 }
 
 void cmd_help()
 {
-    printf("\nthis is a help!");
-    printf("\nTODO: show how to play.");
+    PlayHelp(game_state);
     printf("\n please press any key to continue.");
     PAUSE();
 }
