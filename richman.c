@@ -120,7 +120,7 @@ void InitMap()
         game_state->map[i].map_value = 0;
     }
 
-    for(i = 0; i < 29; ++i) {
+    for(i = 1; i < 29; ++i) {
         game_state->map[i].map_value = 200;
     }
 
@@ -148,7 +148,7 @@ void InitMap()
 
 
 void GameStart() {
-    char com_buf[10];
+    char com_buf[BUF_SIZE];
 
     while (1) {
 
@@ -175,10 +175,7 @@ void GameStart() {
                 cmd_sellhouse();
             }
             else if (STR_EQU(COMMAND_STEP, com_buf)) {
-                printf("请输入步数：");
-                int step;
-                scanf("%d", &step);
-                cmd_step(step);
+                cmd_step();
                 cmd_buyhouse();
                 CHECK_OUT_PLAYER(game_state);
 
@@ -232,11 +229,16 @@ void cmd_roll()
     // getchar();
 }
 
-void cmd_step(int step)
+void cmd_step()
 {
+    int step;
+
     // short step;
     char flag;
     // GET_STEP(step);
+
+    printf("请输入步数：");
+    step = UsFgetsNum();
 
     GET_PLAYER_FLAG(game_state, flag);
 
@@ -274,14 +276,13 @@ void cmd_help()
 
 void cmd_quit()
 {
-    printf("\nThanks for playing.");
+    printf("\n Thanks for playing.");
     printf("\n please press any key to continue.");
     PAUSE();
 }
 
 void cmd_buyhouse()
 {
-
     PrintHouseInfo(game_state);
     printf("\n");
     BuyHouse(game_state->current_player->player_id, 
@@ -294,12 +295,4 @@ void cmd_sellhouse()
     printf("Debug:start to sell house\n");
     getchar();
     SellHouse(game_state->current_player->cur_pos, game_state);
-}
-
-void cmd_updatehouse()
-{
-    printf("Debug:start to update house\n");
-    getchar();
-    UpdateHouse(game_state->current_player->player_id, 
-             game_state->current_player->cur_pos, game_state);
 }
