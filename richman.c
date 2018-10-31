@@ -181,6 +181,7 @@ void GameStart() {
             }
             else if (STR_EQU(COMMAND_THREE, com_buf)) {
                 cmd_buythree();
+
             }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();
