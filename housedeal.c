@@ -16,7 +16,7 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
     {
         printf("该房子已经被其他玩家，你将被收取费用");
         PayFees(game_state);
-        PAUCE();
+        // PAUCE();
         return;
     }
     
@@ -229,7 +229,9 @@ void PayFees(GAME *game_state)
     {
         printf("非常遗憾，你已破产!\n");
         DeleteCurrentPlayer(game_state);
-        PAUCE();
+        printf("结束");
+        printf("人数：%d\n", game_state->player_num);
+        PAUSE();
     }
 }
 
@@ -253,38 +255,30 @@ PLAYER * Map_Player(int plyr_id, GAME *game_state)
 void DeleteCurrentPlayer(GAME *game_state)
 {
     int current_player_id = game_state->current_player->player_id;
-    printf("11115\n");
     PLAYER *pre_player = NULL;
-    printf("111116\n");
     PLAYER *temp_player = game_state->player;
-    printf("111117\n");
     //when the first player bankrupt
     if (temp_player->player_id == current_player_id)
     {
-        printf("111112\n");
         temp_player = game_state->current_player->next;
-        printf("111114\n");
         free(game_state->current_player);
-        printf("11111\n");
         game_state->current_player = temp_player;
     }
     else
     {
-        while(1)
+        while(temp_player)
         {
             pre_player = temp_player;
-            printf("111119\n");
             temp_player = temp_player->next;
             if (temp_player->player_id == current_player_id)
             {
-                printf("1111109\n");
                 pre_player ->next = temp_player->next;
                 free(game_state->current_player);
+                game_state->player_num -= 1;
                 game_state->current_player = temp_player;
                 break;
             }
             else{
-                printf("w11111\n");
                 pre_player = temp_player;
                 temp_player = temp_player->next;
             }
@@ -299,7 +293,7 @@ void PrintHouseInfo(int house_position, GAME *game_state)
     // printf("房子的类型：%c\n", game_state->map[house_position].house_flag->flag);
     printf("房子的等级：%d\n", game_state->map[house_position].house_level);
     printf("房子的主人id：%d\n", game_state->map[house_position].house_owner_id);
-    printf("房子的价格：%d\n", game_state->map[house_position].map_value);
+    printf("房子的价格：%d\n", game_state->map[house_position].map_value * (game_state->map[house_position].house_level + 1));
 
 }
 

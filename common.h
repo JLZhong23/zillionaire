@@ -108,7 +108,7 @@ typedef struct PLAYER_ {
 
     // house owned by player, this is a pointer array, size is 57
     // every one point to a MAP_BLOCK zone.
-    struct MAP_BLOCK_ * house_id[57];
+    struct MAP_BLOCK_ * house_id[64];
 
     // next player
     struct PLAYER_ *next;

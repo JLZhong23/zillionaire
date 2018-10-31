@@ -161,8 +161,16 @@ void GameStart() {
             if(STR_EQU(COMMAND_ROLL, com_buf)){
                 cmd_roll();
                 cmd_buyhouse();
-                CHECK_OUT_PLAYER(game_state);
-
+                if(game_state->player_num > 1)
+                {
+                    CHECK_OUT_PLAYER(game_state);
+                }
+                else
+                {
+                    printf("胜利");
+                    PAUSE();
+                    break;
+                }
             }
             else if (STR_EQU(COMMAND_QUWRY, com_buf)){
                 cmd_query();
@@ -177,7 +185,16 @@ void GameStart() {
             else if (STR_EQU(COMMAND_STEP, com_buf)) {
                 cmd_step();
                 cmd_buyhouse();
-                CHECK_OUT_PLAYER(game_state);
+                if(game_state->player_num > 1)
+                {
+                    CHECK_OUT_PLAYER(game_state);
+                }
+                else
+                {
+                    printf("玩家%s胜利", game_state->current_player->player_name);
+                    PAUSE();
+                    break;
+                }
             }
             else if (STR_EQU(COMMAND_THREE, com_buf)) {
                 cmd_buythree();
@@ -226,7 +243,7 @@ void cmd_roll()
     DisplayMap(game_state);
     printf("\n 您获得的点数为：%d\n",step);
     // printf("\n please press any key to continue.");
-    // getchar();
+    getchar();
     // getchar();
 }
 
@@ -289,6 +306,8 @@ void cmd_buyhouse()
     printf("\n");
     BuyHouse(game_state->current_player->player_id, 
              game_state->current_player->cur_pos, game_state);
+    return;
+
 }
 
 void cmd_sellhouse()
