@@ -73,6 +73,11 @@
     getchar(); \
 }while(0);
 
+#define PAUCE() do { \
+    getchar(); \
+    getchar(); \
+}while(0);
+
 typedef struct PLAYER_ {
     // user id
     int player_id;

@@ -120,7 +120,7 @@ void InitMap()
         game_state->map[i].map_value = 0;
     }
 
-    for(i = 0; i < 29; ++i) {
+    for(i = 1; i < 29; ++i) {
         game_state->map[i].map_value = 200;
     }
 
@@ -148,7 +148,7 @@ void InitMap()
 
 
 void GameStart() {
-    char com_buf[10];
+    char com_buf[BUF_SIZE];
 
     while (1) {
 
@@ -160,6 +160,9 @@ void GameStart() {
 
             if(STR_EQU(COMMAND_ROLL, com_buf)){
                 cmd_roll();
+                cmd_buyhouse();
+                CHECK_OUT_PLAYER(game_state);
+
             }
             else if (STR_EQU(COMMAND_QUWRY, com_buf)){
                 cmd_query();
@@ -167,14 +170,17 @@ void GameStart() {
             else if (STR_EQU(COMMAND_HELP, com_buf)) {
                 cmd_help();
             }
-            else if (STR_EQU(COMMAND_BUYHOUSE, com_buf)) {
-                cmd_buyhouse();
-            }
+
             else if (STR_EQU(COMMAND_SELLHOUSE, com_buf)) {
                 cmd_sellhouse();
             }
-            else if (STR_EQU(COMMAND_UPDATEHOUSE, com_buf)) {
-                cmd_updatehouse();
+            else if (STR_EQU(COMMAND_STEP, com_buf)) {
+                cmd_step();
+                cmd_buyhouse();
+                CHECK_OUT_PLAYER(game_state);
+            }
+            else if (STR_EQU(COMMAND_THREE, com_buf)) {
+                cmd_buythree();
             }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();
@@ -209,6 +215,37 @@ void cmd_roll()
 
     // player leave current map block
     DEL_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
+    
+    // player move
+    game_state->current_player->cur_pos = (game_state->current_player->cur_pos + step) % 70;
+
+    // player arrive new map block
+    ADD_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
+
+    // update map
+    DisplayMap(game_state);
+    printf("\n 您获得的点数为：%d\n",step);
+    // printf("\n please press any key to continue.");
+    // getchar();
+    // getchar();
+}
+
+void cmd_step()
+{
+    int step;
+
+    // short step;
+    char flag;
+    // GET_STEP(step);
+    getchar();
+    while((step = UsFgetsNum()) == 0){
+        printf("请输入距离!");
+    }
+
+    GET_PLAYER_FLAG(game_state, flag);
+
+    // player leave current map block
+    DEL_HOUSE_FLAG(game_state->current_player->cur_pos, flag);
 
     // player move
     game_state->current_player->cur_pos = (game_state->current_player->cur_pos + step) % 70;
@@ -218,12 +255,12 @@ void cmd_roll()
 
     // update map
     DisplayMap(game_state);
-    printf("\n 您获得的点数为：%d",step);
-    printf("\n please press any key to continue.");
-    PAUSE();
-    CHECK_OUT_PLAYER(game_state);
-}
+    printf("\n 您获得的点数为：%d\n",step);
+    // printf("\n please press any key to continue.");
+    // getchar();
+    // getchar();
 
+}
 
 void cmd_query()
 {
@@ -241,15 +278,15 @@ void cmd_help()
 
 void cmd_quit()
 {
-    printf("\nThanks for playing.");
+    printf("\n Thanks for playing.");
     printf("\n please press any key to continue.");
     PAUSE();
 }
 
 void cmd_buyhouse()
 {
-    printf("Debug:start to buy house\n");
-    getchar();
+    PrintHouseInfo(game_state->current_player->cur_pos, game_state);
+    printf("\n");
     BuyHouse(game_state->current_player->player_id, 
              game_state->current_player->cur_pos, game_state);
 }
@@ -258,13 +295,12 @@ void cmd_sellhouse()
 {
     printf("Debug:start to sell house\n");
     getchar();
-    SellHouse(game_state->current_player->cur_pos, game_state);
+    SellHouse(game_state);
 }
 
-void cmd_updatehouse()
+void cmd_buythree()
 {
-    printf("Debug:start to update house\n");
+    printf("Debug:start to buy three house\n");
     getchar();
-    UpdateHouse(game_state->current_player->player_id, 
-             game_state->current_player->cur_pos, game_state);
+    BuyHouseThree(game_state);
 }
