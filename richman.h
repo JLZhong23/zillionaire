@@ -9,7 +9,7 @@
 #define COMMAND_QUIT "quit"
 #define COMMAND_SELLHOUSE "sell"
 #define COMMAND_STEP "step"
-
+#define COMMAND_THREE "three"
 #define STR_EQU(str1, str2) (strcasecmp((str1), (str2)) == 0)
 
 #define INIT_PLAYER_HOUSE(player) do { \
@@ -54,6 +54,7 @@ void cmd_quit();
 void cmd_buyhouse();
 void cmd_sellhouse();
 void cmd_step();
+void cmd_buythree();
 
 GAME *game_state = NULL;
 char role_name[4][16] = {"Q钱夫人", "A阿士伯", "J金贝贝", "S孙小美"};
