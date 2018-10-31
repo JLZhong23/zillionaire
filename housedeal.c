@@ -53,7 +53,8 @@ void BuyHouse(int role_id, int house_position, GAME *game_state)
             }
             else
             {
-                game_state->current_player->money = game_state->current_player->money - game_state->map[house_position].map_value;
+                game_state->current_player->money = 
+                game_state->current_player->money - game_state->map[house_position].map_value;
                 game_state->map[house_position].house_owner_id = role_id;
                 
                 // 玩家中要添加该空地game_state->current_player->house[] 
@@ -169,18 +170,8 @@ void SellHouse(GAME *game_state)
         int house_position;
         printf("请选择你要卖的房子的位置:");
         house_position = UsFgetsNum();
-    
-        printf("house_position:%d\n", house_position);
-
-        for(int i ; i<100; i ++)
-        {
-            int a=0;
-        }
-        printf("请选择你要卖的房子的位置2:");
 
         int id = game_state->current_player->player_id;
-
-        printf("请选择你要卖的房子的位置1:");
 
         if(game_state->map[house_position].house_owner_id != id)
         {
@@ -189,7 +180,7 @@ void SellHouse(GAME *game_state)
             return;
         }
 
-        printf("是否确认出售房屋：输入Y或N:");
+        printf("是否确认出售房屋：\n输入Y或N:");
         char confirm = UsFgetsChar();
 
         // scanf("%c", &confirm);
@@ -201,16 +192,15 @@ void SellHouse(GAME *game_state)
         }
         else if (confirm == 'Y' || confirm == 'y')
         {
-        
-        game_state->current_player->house_id[house_position] = 0;
-        game_state->map[house_position].house_owner_id = 0;
-        game_state->map[house_position].house_flag = 0;
-        //the money of selling the house
-        int sell_money = game_state->map[house_position].map_value * (game_state->map[house_position].house_level + 1) * 2; 
-        game_state->current_player->money += sell_money;
+            game_state->current_player->house_id[house_position] = 0;
+            game_state->map[house_position].house_owner_id = 0;
+            game_state->map[house_position].house_flag = 0;
+            //the money of selling the house
+            int sell_money = game_state->map[house_position].map_value * (game_state->map[house_position].house_level + 1) * 2; 
+            game_state->current_player->money += sell_money;
 
-        printf("恭喜你售卖成功!\n");
-        PAUSE();
+            printf("恭喜你售卖成功!\n");
+            PAUSE();
         }
         else
         {
@@ -298,11 +288,28 @@ void DeleteCurrentPlayer(GAME *game_state)
 //debug info
 void PrintHouseInfo(int house_position, GAME *game_state)
 {
-
     printf("房子的位置：%d\n", house_position);
-    printf("房子的类型：%c\n", game_state->map[house_position].house_flag->flag);
+    // printf("房子的类型：%c\n", game_state->map[house_position].house_flag->flag);
     printf("房子的等级：%d\n", game_state->map[house_position].house_level);
     printf("房子的主人id：%d\n", game_state->map[house_position].house_owner_id);
     printf("房子的价格：%d\n", game_state->map[house_position].map_value);
+
+}
+
+void BuyHouseThree(GAME *game_state)
+{
+    for(int i = 1; i < 4; i++)
+    {
+        game_state->current_player->money = 
+        game_state->current_player->money - game_state->map[i].map_value;
+        game_state->map[i].house_owner_id = game_state->current_player->player_id;
+
+        // 玩家中要添加该空地game_state->current_player->house[] 
+        game_state->current_player->house_id[i] 
+        =  &(game_state->map[i]);
+        printf("恭喜你购买成功\n");
+        printf("你的余额为:%d", game_state->current_player->money);
+        printf("\n");
+    }
 
 }

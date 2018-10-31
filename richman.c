@@ -178,8 +178,9 @@ void GameStart() {
                 cmd_step();
                 cmd_buyhouse();
                 CHECK_OUT_PLAYER(game_state);
-
-
+            }
+            else if (STR_EQU(COMMAND_THREE, com_buf)) {
+                cmd_buythree();
             }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();
@@ -295,4 +296,11 @@ void cmd_sellhouse()
     printf("Debug:start to sell house\n");
     getchar();
     SellHouse(game_state);
+}
+
+void cmd_buythree()
+{
+    printf("Debug:start to buy three house\n");
+    getchar();
+    BuyHouseThree(game_state);
 }
