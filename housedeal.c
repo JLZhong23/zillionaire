@@ -154,7 +154,7 @@ void SellHouse(GAME *game_state)
 {
     printf("你拥有的房产如下：\n");
     int number = 0;
-    for(int i = 0; i < 57; i++)
+    for(int i = 0; i < 70; i++)
     {
         if(game_state->map[i].house_owner_id == game_state->current_player->player_id)
         {
@@ -169,8 +169,20 @@ void SellHouse(GAME *game_state)
         int house_position;
         printf("请选择你要卖的房子的位置:");
         house_position = UsFgetsNum();
-        
-        if(game_state->map[house_position].house_owner_id != game_state->current_player->player_id)
+    
+        printf("house_position:%d\n", house_position);
+
+        for(int i ; i<100; i ++)
+        {
+            int a=0;
+        }
+        printf("请选择你要卖的房子的位置2:");
+
+        int id = game_state->current_player->player_id;
+
+        printf("请选择你要卖的房子的位置1:");
+
+        if(game_state->map[house_position].house_owner_id != id)
         {
             printf("该房子还不属于你");
             PAUSE();
@@ -183,7 +195,7 @@ void SellHouse(GAME *game_state)
         // scanf("%c", &confirm);
         if(confirm == 'N' || confirm == 'n')
         {
-            printf("你已经放弃购买");
+            printf("你已经放弃出售");
             PAUSE();
             return;
         }
