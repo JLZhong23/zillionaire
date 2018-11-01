@@ -44,3 +44,9 @@ void TestUpdateHouse(GAME *game_state)
     game_state->map[2].house_owner_id = game_state->current_player->player_id;
     BuyHouse(game_state->current_player->player_id, 2, game_state);
 }
+
+void TestSellHouse(GAME *game_state)
+{
+    game_state->map[2].house_owner_id = game_state->current_player->player_id;
+    BuyHouse(game_state->current_player->player_id, 2, game_state);
+}

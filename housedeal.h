@@ -11,6 +11,6 @@ PLAYER * Map_Player(int house_id, GAME *game_state);
 void PayFees(GAME *game_state);
 void DeleteCurrentPlayer(GAME *game_state);
 void PrintHouseInfo(int house_position, GAME *game_state);
-void BuyHouseThree(GAME *game_state);
+
 
 #endif //HOUSE_DEAL
