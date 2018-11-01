@@ -36,7 +36,7 @@ void PlayQuery(GAME *game_state)
     t_pos.y ++;
     GOTOXY(t_pos.x , t_pos.y)
     printf("您名下的房产为：");
-    for(int i = 0; i < 57; ++i){
+    for(int i = 0; i < 64; ++i){
         if (game_state->current_player->house_id[i]){
             printf(" %d", i);
         }

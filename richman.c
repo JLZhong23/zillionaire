@@ -112,7 +112,7 @@ Exit:
 void InitMap()
 {
     int i;
-    for(i = 0; i < 69; ++i){
+    for(i = 1; i < 69; ++i){
         game_state->map[i].ToolType = T_NO;
         game_state->map[i].house_level = 0;
         game_state->map[i].house_owner_id = 0;
@@ -146,10 +146,10 @@ void InitMap()
 }
 
 
-
 void GameStart() {
     char com_buf[BUF_SIZE];
-
+    bool status;
+    bool is_use_tool = false;
     while (1) {
 
         DisplayMap(game_state);
@@ -159,10 +159,21 @@ void GameStart() {
             scanf("%s", com_buf);
 
             if(STR_EQU(COMMAND_ROLL, com_buf)){
+                getchar(); // clean input buffer.
                 cmd_roll();
-                cmd_buyhouse();
-                CHECK_OUT_PLAYER(game_state);
 
+                status = AbleBuyHouse(game_state->current_player->cur_pos, game_state);
+                if(status){
+                    cmd_buyhouse();
+                }
+
+                // When the remaining player number is one, game over.
+                if(GameEnd()){
+                    goto Exit;
+                }
+
+                CHECK_OUT_PLAYER(game_state);
+                is_use_tool = false;
             }
             else if (STR_EQU(COMMAND_QUWRY, com_buf)){
                 cmd_query();
@@ -175,14 +186,32 @@ void GameStart() {
                 cmd_sellhouse();
             }
             else if (STR_EQU(COMMAND_STEP, com_buf)) {
+                getchar(); // clean input buffer.
                 cmd_step();
-                cmd_buyhouse();
+
+                status = AbleBuyHouse(game_state->current_player->cur_pos, game_state);
+                if(status){
+                    cmd_buyhouse();
+                }
+
+                // When the remaining player number is one, game over.
+                if(GameEnd()){
+                    goto Exit;
+                }
+
                 CHECK_OUT_PLAYER(game_state);
+                is_use_tool = false;
             }
             else if (STR_EQU(COMMAND_THREE, com_buf)) {
                 cmd_buythree();
-
             }
+//            TODO:使用道具
+//            else if(STR_EQU(COMMAND_asfgd, com_buf)){
+//                if(is_use_tool){
+//                    continue;
+//                }
+//
+//            }
             else if (STR_EQU(COMMAND_QUIT, com_buf)) {
                 cmd_quit();
                 goto Exit;
@@ -206,11 +235,33 @@ void GameStart() {
 
 }
 
+bool GameEnd()
+{
+    bool ret = false;
+
+    if(game_state->player_num == 1){
+        printf("游戏结束.\n");
+        printf("恭喜%s获得胜利",game_state->current_player->player_name);
+        ret = true;
+    }
+
+    return ret;
+}
+
 void cmd_roll()
 {
     short step;
     char flag;
+    bool bomb_status;
+
     GET_STEP(step);
+
+    // TODO: 判断玩家是否遇到炸弹或者路障.
+    //bomb_status = BlockedOrBombed();
+
+    if(bomb_status){
+        goto Exit;
+    }
 
     GET_PLAYER_FLAG(game_state, flag);
 
@@ -225,20 +276,17 @@ void cmd_roll()
 
     // update map
     DisplayMap(game_state);
-    printf("\n 您获得的点数为：%d\n",step);
-    // printf("\n please press any key to continue.");
-    // getchar();
-    // getchar();
+    printf("\n您获得的步数为：%d\n",step);
+
+    Exit:
+    return;
 }
 
 void cmd_step()
 {
     int step;
-
-    // short step;
     char flag;
-    // GET_STEP(step);
-    getchar();
+
     while((step = UsFgetsNum()) == 0){
         printf("请输入距离!");
     }
@@ -256,11 +304,9 @@ void cmd_step()
 
     // update map
     DisplayMap(game_state);
-    printf("\n 您获得的点数为：%d\n",step);
-    // printf("\n please press any key to continue.");
-    // getchar();
-    // getchar();
+    printf("\n 您获得的步数为：%d\n",step);
 
+    return;
 }
 
 void cmd_query()
@@ -286,10 +332,7 @@ void cmd_quit()
 
 void cmd_buyhouse()
 {
-    PrintHouseInfo(game_state->current_player->cur_pos, game_state);
-    printf("\n");
-    BuyHouse(game_state->current_player->player_id, 
-             game_state->current_player->cur_pos, game_state);
+    BuyHouse(game_state->current_player->player_id, game_state->current_player->cur_pos, game_state);
 }
 
 void cmd_sellhouse()

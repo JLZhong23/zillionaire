@@ -47,9 +47,9 @@
             }\
             else{ \
                 pre_flag->next = temp_flag->next; \
-                free(temp_flag); \
-                break; \
             } \
+            free(temp_flag); \
+            break; \
         } \
     pre_flag = temp_flag; \
     temp_flag = temp_flag->next; \
@@ -106,9 +106,9 @@ typedef struct PLAYER_ {
     // number of point
     int point;
 
-    // house owned by player, this is a pointer array, size is 57
+    // house owned by player, this is a pointer array, size is 64
     // every one point to a MAP_BLOCK zone.
-    struct MAP_BLOCK_ * house_id[57];
+    struct MAP_BLOCK_ * house_id[64];
 
     // next player
     struct PLAYER_ *next;

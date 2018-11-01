@@ -13,7 +13,7 @@
 #define STR_EQU(str1, str2) (strcasecmp((str1), (str2)) == 0)
 
 #define INIT_PLAYER_HOUSE(player) do { \
-    for(int i = 0; i < 57; ++i) { \
+    for(int i = 0; i < 64; ++i) { \
         (player)->house_id[i] = NULL; \
     } \
 } while(0);
@@ -47,6 +47,7 @@
 bool ChooseRole();
 void InitMap();
 void GameStart();
+bool GameEnd();
 void cmd_help();
 void cmd_query();
 void cmd_roll();

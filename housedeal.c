@@ -3,114 +3,99 @@
 void BuyHouse(int role_id, int house_position, GAME *game_state)
 {
 
-    if(role_id>4 || role_id < 1)
-    {
-        printf("Error: role_id is out of 1~4!");
-        PAUSE();
-        return;
-    }
-
     // pay the fees
     if(game_state->map[house_position].house_owner_id != 0 &&
        game_state->current_player->player_id != game_state->map[house_position].house_owner_id)
     {
         printf("该房子已经被其他玩家，你将被收取费用");
         PayFees(game_state);
-        PAUCE();
+        getchar();
         return;
     }
     
     //update the house 
     if (game_state->map[house_position].house_owner_id == game_state->current_player->player_id)
     {
-        UpdateHouse(game_state->current_player->player_id, house_position, game_state);
+        UpdateHouse(house_position, game_state);
+        return;
     }
-
 
     //buy the house
     if(game_state->map[house_position].house_owner_id == 0)
     {
-
         char confirm;
-        printf("你的余额为:%d\n", game_state->current_player->money);
-        PrintHouseInfo(house_position, game_state);
-        printf("是否确认购买：\n输入Y或N:");
 
-        confirm = UsFgetsChar();
-        // scanf("%c", &confirm);
-        
-        if(confirm == 'N' || confirm == 'n')
+        if(game_state->map[house_position].map_value > game_state->current_player->money)
         {
-            printf("你已经放弃购买");
-            PAUCE();    
+            printf("你的金钱不够购买此地块!");
+            getchar();
             return;
         }
-        else if(confirm == 'Y' || confirm == 'y')
-        {
-            if(game_state->map[house_position].map_value > game_state->current_player->money)
+
+        printf("你的余额为:￥%d ", game_state->current_player->money);
+        printf("是否花费￥%d购买此地块(Y/N)：", game_state->map[house_position].map_value);
+
+        while(1){
+            confirm = UsFgetsChar();
+            if(confirm == 'N' || confirm == 'n')
             {
-                printf("你的金钱不够购买!");
+                printf("你已经放弃购买\n");
+                getchar();
                 return;
             }
+
+            else if(confirm == 'Y' || confirm == 'y')
+            {
+                game_state->current_player->money -= game_state->map[house_position].map_value;
+                game_state->map[house_position].house_owner_id = role_id;
+
+                // 玩家中要添加该空地game_state->current_player->house[]
+                game_state->current_player->house_id[house_position]
+                        =  &(game_state->map[house_position]);
+                printf("恭喜你购买成功! ");
+                printf("你当前余额为:￥%d\n", game_state->current_player->money);
+                getchar();
+                return;
+            }
+
             else
             {
-                game_state->current_player->money = 
-                game_state->current_player->money - game_state->map[house_position].map_value;
-                game_state->map[house_position].house_owner_id = role_id;
-                
-                // 玩家中要添加该空地game_state->current_player->house[] 
-                game_state->current_player->house_id[house_position] 
-                =  &(game_state->map[house_position]);
-                printf("恭喜你购买成功\n");
-                printf("你的余额为:%d", game_state->current_player->money);
-                printf("\n");
-                PAUCE();
+                printf("输入错误，请选择：");
             }
-        }
-        else
-        {
-            printf("你的命令输入错误");
-            PAUCE();
         }
     }
     
 }
 
 // Update our house 
-void UpdateHouse(int role_id, int house_position, GAME *game_state)
+void UpdateHouse( int house_position, GAME *game_state)
 {
-    if(role_id>4 || role_id < 1)
-    {
-        printf("Error: role_id is out of 1~4!");
-        PAUSE();
-        return;
-    }  
 
     switch (game_state->map[house_position].house_level)
     {
         case 0:
             HouseUpdateOneLeve(house_position, "空地", "茅房", game_state);
-            PAUSE();
+            getchar();
             break;
 
         case 1:
             HouseUpdateOneLeve(house_position, "茅房", "洋房", game_state);
-            PAUSE();
+            getchar();
             break;
 
         case 2:
             HouseUpdateOneLeve(house_position, "洋房", "摩天楼", game_state);
-            PAUSE();
+            getchar();
             break;    
 
          case 3:
             printf("你的房子是摩天大楼，你不需要再升级");
-            PAUSE();
+            getchar();
             break;               
 
          default:
             printf("Error: house_level is out of 0~3!");
-            PAUSE();
+            getchar();
             break;
     }
 
@@ -119,35 +104,33 @@ void UpdateHouse(int role_id, int house_position, GAME *game_state)
 void HouseUpdateOneLeve(int house_position, char *primary_level, char *update_level, GAME *game_state)
 {
     char choose_bool; //role choose the level of house to update
-    printf("你的房子是%s，你要升级的等级:\n%s\n是否选择升级:\n1.Y\n2.N\n", primary_level, update_level);
 
-    choose_bool = UsFgetsChar();
-    // getchar();
+    if(game_state->map[house_position].map_value > game_state->current_player->money) {
+        printf("你的金钱不够升级此地块！\n");
+        getchar();
+        return;
+    }
 
-    if(choose_bool == 'Y' || choose_bool == 'y')
-    {
-        if(game_state->map[house_position].map_value > game_state->current_player->money)
-        {
-            printf("你的金钱不够升级！");
-            return;
-        }
-        else
-        {
-            game_state->current_player->money = game_state->current_player->money - game_state->map[house_position].map_value;
+    printf("你的房子是%s，你要升级的等级:%s\n 是否选择升级(Y/N):", primary_level, update_level);
+
+    while(1){
+        choose_bool = UsFgetsChar();
+        if(choose_bool == 'Y' || choose_bool == 'y') {
+
+            game_state->current_player->money  -= game_state->map[house_position].map_value;
             game_state->map[house_position].house_level += 1;
             printf("房屋成功升级为%s", update_level);
             return;
         }
-    }else if(choose_bool == 'N' || choose_bool == 'n')
-    {
-        printf("你已放弃升级!");
-        return;
+        else if(choose_bool == 'N' || choose_bool == 'n')
+        {
+            printf("你已放弃升级!");
+            return;
+        }
+
+        printf("输入错误,请选择：");
     }
-    else
-    {
-        printf("你输入的命令有误");
-        PAUCE();
-    }
+
 }
 
 
@@ -176,18 +159,17 @@ void SellHouse(GAME *game_state)
         if(game_state->map[house_position].house_owner_id != id)
         {
             printf("该房子还不属于你");
-            PAUSE();
+            getchar();
             return;
         }
 
-        printf("是否确认出售房屋(Y/N):");
+        printf("是否确认出售房屋：\n输入Y或N:");
         char confirm = UsFgetsChar();
 
-        // scanf("%c", &confirm);
         if(confirm == 'N' || confirm == 'n')
         {
             printf("你已经放弃出售");
-            PAUSE();
+            getchar();
             return;
         }
         else if (confirm == 'Y' || confirm == 'y')
@@ -200,12 +182,12 @@ void SellHouse(GAME *game_state)
             game_state->current_player->money += sell_money;
 
             printf("恭喜你售卖成功!\n");
-            PAUSE();
+            getchar();
         }
         else
         {
             printf("你的命令输入错误");
-            PAUCE();
+            getchar();
         }
     }
     
@@ -217,36 +199,36 @@ void PayFees(GAME *game_state)
 
     int house_level = game_state->map[game_state->current_player->cur_pos].house_level;
     int fees = (house_level + 1) * house_value * 0.5;
-    printf("%d\n", fees);
-    //current player add the fees
+    printf("￥ %d\n", fees);
+
+    //current player subtract the fees
     game_state->current_player->money -= fees;
     PLAYER *map_player = Map_Player(game_state->map[game_state->current_player->cur_pos].house_owner_id, game_state);
-    //map player subtract the fees
-    map_player->money += fees;
-    printf("缴费成功\n");
 
-    game_state->current_player->money = -100;
+    //map owner player add the fees
+    map_player->money += fees;
+
     //check bankrupt
     if( game_state->current_player->money < 0)
     {
         printf("非常遗憾，你已破产!\n");
         DeleteCurrentPlayer(game_state);
-        PAUCE();
+        getchar();
     }
 }
 
 //get the player of map
 PLAYER * Map_Player(int plyr_id, GAME *game_state)
 {
-
     PLAYER *map_player;
+
     map_player = game_state->player;
     while(map_player)
     {
-        if (map_player->player_id == plyr_id)
-        {
+        if (map_player->player_id == plyr_id) {
             return map_player;
         }
+
         map_player = map_player->next;
     }
     return NULL;
@@ -255,42 +237,25 @@ PLAYER * Map_Player(int plyr_id, GAME *game_state)
 void DeleteCurrentPlayer(GAME *game_state)
 {
     int current_player_id = game_state->current_player->player_id;
-    printf("11115\n");
     PLAYER *pre_player = NULL;
-    printf("111116\n");
     PLAYER *temp_player = game_state->player;
-    printf("111117\n");
-    //when the first player bankrupt
-    if (temp_player->player_id == current_player_id)
-    {
-        printf("111112\n");
-        temp_player = game_state->current_player->next;
-        printf("111114\n");
-        free(game_state->current_player);
-        printf("11111\n");
-        game_state->current_player = temp_player;
-    }
-    else
-    {
-        while(1)
-        {
-            pre_player = temp_player;
-            printf("111119\n");
-            temp_player = temp_player->next;
-            if (temp_player->player_id == current_player_id)
-            {
-                printf("1111109\n");
-                pre_player ->next = temp_player->next;
-                free(game_state->current_player);
-                game_state->current_player = temp_player;
-                break;
+
+    while(temp_player){
+        if(temp_player->player_id == current_player_id){
+            if(!pre_player) { //when the first player in bankrupt is current player.
+                game_state->player = temp_player->next;
+                game_state->current_player = game_state->player;
             }
-            else{
-                printf("w11111\n");
-                pre_player = temp_player;
-                temp_player = temp_player->next;
+            else {
+                pre_player->next = temp_player->next;
+                game_state->current_player = pre_player->next;
             }
+            game_state->player_num --;
+            free(temp_player);
+            break;
         }
+        pre_player = temp_player;
+        temp_player = temp_player->next;
     }
 } 
 
@@ -298,7 +263,6 @@ void DeleteCurrentPlayer(GAME *game_state)
 void PrintHouseInfo(int house_position, GAME *game_state)
 {
     printf("房子的位置：%d\n", house_position);
-    // printf("房子的类型：%c\n", game_state->map[house_position].house_flag->flag);
     printf("房子的等级：%d\n", game_state->map[house_position].house_level);
     printf("房子的主人id：%d\n", game_state->map[house_position].house_owner_id);
     printf("房子的价格：%d\n", game_state->map[house_position].map_value);
@@ -321,4 +285,75 @@ void BuyHouseThree(GAME *game_state)
         printf("\n");
     }
 
+}
+
+bool AbleBuyHouse(int house_id, GAME *game)
+{
+    bool ret;
+    if(house_id == 0){
+        // start
+        ret = false;
+    }
+    else if (house_id == 14){
+        // hospital
+        ret = false;
+    }
+    else if(house_id == 28) {
+        // tool
+        ret = false;
+    }
+    else if(house_id == 35){
+        // gift house
+        ret = false;
+    }
+    else if(house_id == 49) {
+        // prison
+        ret = false;
+    }
+    else if(house_id == 63) {
+        // magic
+        ret = false;
+    }
+    else if(house_id > 63 && house_id <70) {
+        // mineral
+        PlayerInMineral(house_id, game);
+        ret = false;
+    }
+    else {
+        ret = true;
+    }
+
+    return ret;
+}
+
+void PlayerInMineral(int mineral_id, GAME *game)
+{
+    switch (mineral_id){
+        case 69:
+            game->current_player->point += 20;
+            printf("恭喜获得 20 点数.");
+            getchar();
+            break;
+        case 67:
+            game->current_player->point += 100;
+            printf("恭喜获得 100 点数.");
+            getchar();
+            break;
+        case 66:
+            game->current_player->point += 40;
+            printf("恭喜获得 40 点数.");
+            getchar();
+            break;
+        case 64:
+            game->current_player->point += 60;
+            printf("恭喜获得 60 点数.");
+            getchar();
+            break;
+        default:
+            // when mineral id equal 68 and 65
+            game->current_player->point += 80;
+            printf("恭喜获得 80 点数.");
+            getchar();
+            break;
+    }
 }
