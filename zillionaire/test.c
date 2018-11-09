@@ -3,7 +3,6 @@
 void Dump(GAME *game_state){
     PLAYER * _player = game_state->player;
     FILE * fp = NULL;
-
     fp = fopen("../test_file/temp/output", "w");
     if(!fp){
         printf("无法打开该文件");
@@ -187,10 +186,6 @@ void HandlePreset(GAME *game_state){
                 int where = 0;
                 int when = 0;
                 scanf("%c %d %d", &who, &where, &when);
-                PLAYER *player = game_state->player;
-                while(player){
-                    if(player->player_name[0] == who){
-                        player->cur_pos = where;
                         player->sleep_time = when;
                         break;
                     }

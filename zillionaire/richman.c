@@ -542,13 +542,16 @@ void cmd_query()
 void cmd_help()
 {
     PlayHelp(game_state);
-}
-
-void cmd_quit()
-{
     CLEAN_TIPS();
     printf("\n\tThanks for playing.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     game_save();
+=======
+    printf("\n Thanks for playing.");    
+    // printf("\n This game status have been stored");
+    // StoreTheGameState();
+    printf("\n please press any key to continue.");
+    PAUSE();
+>>>>>>> 97edbcf3b5eed79acdd5d7b9e1baa5205aae22c8
 }
 
 void cmd_buyhouse()
