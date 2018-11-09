@@ -1,0 +1,27 @@
+t
+preset user AQS
+preset map 3 A 2
+preset map 4 Q 3
+preset fund A 1000
+preset fund Q 2000
+preset fund S 3000
+preset credit A 10
+preset credit Q 20
+preset credit S 30
+preset gift A barrier 2
+preset gift A robot 3
+preset gift A god 0
+preset gift Q barrier 2
+preset gift Q robot 3
+preset gift Q god 0
+preset gift S barrier 2
+preset gift S robot 3
+preset gift S god 0
+preset barrier 5
+preset barrier 6
+preset userloc A 20 2
+preset userloc Q 20 0
+preset userloc S 18 0
+preset nextuser Q
+e
+quit

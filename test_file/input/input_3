@@ -1,0 +1,13 @@
+t
+preset user AQ
+preset map 3 A 2
+preset fund A 10000
+preset fund Q 10000
+preset userloc A 0 0
+preset userloc Q 0 0
+preset nextuser A
+e
+step 1
+Y
+
+quit

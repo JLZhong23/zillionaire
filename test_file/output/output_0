@@ -1,0 +1,21 @@
+user AQS
+map 3 A 2
+map 4 Q 3
+fund A 1000
+fund Q 2000
+fund S 3000
+credit A 10
+credit Q 20
+credit S 30
+gift A barrier 2
+gift A robot 3
+gift Q barrier 2
+gift Q robot 3
+gift S barrier 2
+gift S robot 3
+barrier in 5
+barrier in 6
+userloc A 20 2
+userloc Q 20
+userloc S 18
+nextuser Q

@@ -1,0 +1,12 @@
+user AQS
+map 3 A 2
+map 4 A 1
+map 7 Q 0
+map 9 Q 1
+fund A 10300
+fund Q 10000
+fund S 9700
+userloc A 0
+userloc Q 0
+userloc S 3
+nextuser A

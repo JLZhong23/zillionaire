@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/zillion.dir/display.c.o CMakeFiles/zillion.dir/help.c.o CMakeFiles/zillion.dir/housedeal.c.o CMakeFiles/zillion.dir/richman.c.o CMakeFiles/zillion.dir/test.c.o  -o zillion 

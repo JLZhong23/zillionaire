@@ -1,0 +1,3 @@
+/mini/zillionaire/zillionaire/CMakeFiles/rebuild_cache.dir
+/mini/zillionaire/zillionaire/CMakeFiles/edit_cache.dir
+/mini/zillionaire/zillionaire/CMakeFiles/zillion.dir
